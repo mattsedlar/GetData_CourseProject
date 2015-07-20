@@ -44,3 +44,20 @@ while (y <= length(activities)) {
   df$Activities[df$Activities == y] <- activities[y]
   y <- y + 1
 }
+
+# clean up the column names
+
+names(df) <- gsub("^t", "Time ", names(df))
+names(df) <- gsub("^f", "Frequency ", names(df))
+names(df) <- gsub("Acc", " Accelerometer ", names(df))
+names(df) <- gsub("Gyro", " Gyroscope ", names(df))
+names(df) <- gsub("Mag", " Magnitude ", names(df))
+names(df) <- gsub(".mean", " Mean ", names(df))
+names(df) <- gsub(".std", " Standard Deviation ", names(df))
+names(df) <- gsub("...X", " X", names(df))
+names(df) <- gsub("...Y", " Y", names(df))
+names(df) <- gsub("...Z", " Z", names(df))
+
+# TIDY DATA SET
+
+tidy_df <- df %>% group_by(Subjects, Activities) %>% summarise_each(funs(mean))
