@@ -7,12 +7,12 @@ features <- read.table("UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)
 
 # TRAINING SET
 train_data <- read.table("UCI HAR Dataset/train/X_train.txt", colClasses = "numeric")
-train_labels <- read.table("UCI HAR Dataset/train/y_train.txt")
+train_labels <- read.table("UCI HAR Dataset/train/y_train.txt", colClasses = "numeric")
 train_subjects <- read.table("UCI HAR Dataset/train/subject_train.txt")
 
 # TEST SET
 test_data <- read.table("UCI HAR Dataset/test/X_test.txt", colClasses = "numeric")
-test_labels <- read.table("UCI HAR Dataset/test/y_test.txt")
+test_labels <- read.table("UCI HAR Dataset/test/y_test.txt", colClasses = "numeric")
 test_subjects <- read.table("UCI HAR Dataset/test/subject_test.txt")
 
 # Activities
@@ -35,4 +35,12 @@ train_df <- label_n_merge(train_data, train_labels, train_subjects)
 # combine both sets
 df <- rbind(test_df, train_df)
 # extract only subjects, activities, means and standard deviations
-df <- df %>% select(Subjects,Activities, contains(".mean"), contains(".std"))
+df <- df %>% select(Subjects,Activities, contains(".mean."), contains(".std."))
+
+# descriptive activity names
+y <- 1
+
+while (y <= length(activities)) {
+  df$Activities[df$Activities == y] <- activities[y]
+  y <- y + 1
+}
