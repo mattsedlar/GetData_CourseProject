@@ -62,3 +62,6 @@ names(df) <- gsub("...Z", "Z", names(df))
 # TIDY DATA SET
 
 tidy_df <- df %>% group_by(Subjects, Activities) %>% summarise_each(funs(mean))
+
+# Write table
+write.table(tidy_df, "tidydata.txt", sep="\t", row.names=FALSE, quote=FALSE)
