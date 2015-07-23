@@ -105,10 +105,31 @@ The tidy set contains the average of the mean and standard deviation for the var
 
 ### Step 1 - Loading dplyr, retrieving the data, and merging into one set
 
-The data set, as noted above, is broken into training and test sets. This script reads both into R, as well as the labels and activities associated with those sets.
+First we load dplyr, because we will be using it a lot.
 
 ```{r}
 library(dplyr)
+```
+
+This next section contains the __acquire_data.R__ script. Because the script is dependent on the data set, we want to check if the person using the script has the data. Here we are checking if the directory exists in the root folder, and if not, downloading and unzipping the files. Then we remove the .zip file to keep things clean.
+
+```{r}
+# checking if user already has data set
+# if not, downloading and unzipping to root dir
+
+if(!file.exists("./UCI HAR Dataset")) { 
+  fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  fileName <- "getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  download.file(fileURL, destfile = fileName, method="curl" )
+  unzip(fileName)
+  # remove the file to clean up the directory
+  file.remove(fileName)
+}
+```
+
+The data set, as noted above, is broken into training and test sets. This script reads both into R, as well as the labels and activities associated with those sets.
+
+```{r}
 
 # reading in the features names to label the 561 variables in each set
 features <- read.table("UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)

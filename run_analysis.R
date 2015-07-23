@@ -1,22 +1,6 @@
 library(dplyr)
 
-# reading in the features names to label the 561 variables in each set
-features <- read.table("UCI HAR Dataset/features.txt", stringsAsFactors = FALSE)
-
-# reading in the two datasets here
-
-# TRAINING SET
-train_data <- read.table("UCI HAR Dataset/train/X_train.txt", colClasses = "numeric")
-train_labels <- read.table("UCI HAR Dataset/train/y_train.txt", colClasses = "numeric")
-train_subjects <- read.table("UCI HAR Dataset/train/subject_train.txt")
-
-# TEST SET
-test_data <- read.table("UCI HAR Dataset/test/X_test.txt", colClasses = "numeric")
-test_labels <- read.table("UCI HAR Dataset/test/y_test.txt", colClasses = "numeric")
-test_subjects <- read.table("UCI HAR Dataset/test/subject_test.txt")
-
-# Activities
-activities <- c("Walking", "Walking Upstairs","Walking Downstairs","Sitting","Standing","Laying")
+source("acquire_data.R")
 
 # label and merge an individual dataset.
 
